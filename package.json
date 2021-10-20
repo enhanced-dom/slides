@@ -1,0 +1,47 @@
+{
+  "name": "@enhanced-dom/slides",
+  "version": "0.0.2",
+  "description": "Basic building blocks for html slides",
+  "keywords": [],
+  "repository": "https://github.com/enhanced-dom/slides.git",
+  "license": "MIT",
+  "author": "CD9B4A105290E17E0948E021DF4105107C88693C59C0B891CCC08366C51AEA990902A6A156AC87D88A2FC41422A5E1C3C4071F251F19441C4516000EC25F87DF",
+  "main": "index.js",
+  "scripts": {
+    "package": "cd dist && npm pack",
+    "prebuild": "rimraf dist/*",
+    "build": "tsc -p ./tsconfig.json",
+    "postbuild": "copyfiles package.json LICENSE.md README.md dist && copyfiles -u 1 src/**/*.scss* dist",
+    "lint": "eslint src/** --fix --config eslint.config.js"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@enhanced-dom/fontawesome": "^0.0.2",
+    "@enhanced-dom/icon": "^0.0.2",
+    "@enhanced-dom/react": "^0.0.2",
+    "@fontsource/montserrat": "^4.4.5",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@theme-ui/typography": "^0.10.0",
+    "deepmerge": "^4.2.2",
+    "gatsby-theme-blog": "^3.0.0",
+    "gatsby-theme-waves": "^0.1.6",
+    "lodash.pick": "^4.4.0",
+    "react-card-flip": "^1.1.1",
+    "theme-ui": "^0.9.1",
+    "typography-theme-wordpress-2016": "^0.16.19"
+  },
+  "devDependencies": {
+    "@enhanced-dom/lint": "^0.0.3",
+    "@types/lodash.pick": "^4.4.6",
+    "@types/react": "^17.0.8",
+    "@types/react-dom": "^17.0.5",
+    "copyfiles": "2.4.1",
+    "rimraf": "3.0.2",
+    "typescript": "4.2.2"
+  },
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">=8.0.0"
+  }
+}
