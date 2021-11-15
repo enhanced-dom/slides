@@ -16,7 +16,7 @@ const TocItem = ({ heading, to, explanation }: TocItemProps) => {
   const anchor = to ?? heading
   return (
     <li>
-      <a href={anchor.toLowerCase().replace(/\s/, '-')}>
+      <a href={`#${anchor.toLowerCase().replace(/\s/, '-')}`}>
         <em>{heading}</em>
       </a>
       {explanation ? ': ' : ''}
