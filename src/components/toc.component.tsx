@@ -3,7 +3,9 @@ import React from 'react'
 const Heading = ({ heading }: { heading: string }) => (
   <h2>
     {heading}
-    <a style={{ display: 'none' }} id={heading.toLowerCase().replace(/\s/, '-')}></a>
+    <a href={`#${heading.toLowerCase().replace(/\s/, '-')}`} style={{ display: 'none' }} id={heading.toLowerCase().replace(/\s/, '-')}>
+      {''}
+    </a>
   </h2>
 )
 

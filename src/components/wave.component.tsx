@@ -56,13 +56,13 @@ const Sticker = ({ progress = 0, steps, variant = 'default' }: { progress: numbe
 export abstract class Wave extends React.PureComponent<{ children: React.ReactNode }> {
   protected abstract toColumns: (children: React.ReactElement[]) => [React.ReactElement[], React.ReactElement[]]
 
-  private childrenToColumns = (children: React.ReactElement | React.ReactElement[]) => {
+  private _childrenToColumns = (children: React.ReactElement | React.ReactElement[]) => {
     const items = React.Children.toArray(children) as React.ReactElement[]
     const columns = this.toColumns(items)
     return columns
   }
 
   render() {
-    return <BaseWave columnComponents={[Sticker, Scroller]} childrenToStepColumns={this.childrenToColumns} {...this.props} />
+    return <BaseWave columnComponents={[Sticker, Scroller]} childrenToStepColumns={this._childrenToColumns} {...this.props} />
   }
 }

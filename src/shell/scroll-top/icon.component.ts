@@ -14,15 +14,7 @@ declare interface IconAttributes
   config: IconConfigType
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      ['enhanced-dom-icon']: IconAttributes
-    }
-  }
-}
-
+IconWebComponent.register()
 export const Icon = withReactAdapter<IconWebComponent, never[], typeof IconWebComponent, IconAttributes>({
   type: IconWebComponent,
-  name: 'enhanced-dom-icon',
 })

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { toTheme } from '@theme-ui/typography'
 import typography from 'typography-theme-wordpress-2016'
 import merge from 'deepmerge'

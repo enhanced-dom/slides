@@ -2,7 +2,7 @@ import React from 'react'
 import ReactCardFlip from 'react-card-flip'
 import { faArrowAltCircleUp } from '@fortawesome/free-regular-svg-icons'
 
-import * as styles from './scroll-top.style.scss'
+import * as styles from './scroll-top.style.pcss'
 import { Icon } from './icon.component'
 
 const getBodyScroll = () => {
@@ -16,17 +16,26 @@ const scrollToTop = () => {
   }
 }
 
+const scrollOnKey = (e: React.KeyboardEvent) => {
+  if (e.altKey || e.shiftKey || e.ctrlKey || e.key !== 'Enter') {
+    return
+  }
+  e.stopPropagation()
+  e.preventDefault()
+  scrollToTop()
+}
+
 export const ScrollTop: React.FunctionComponent = ({ children }) => {
   const [isFlipped, setFlipped] = React.useState(false)
-  const showButton = () => {
+  const showButton = React.useCallback(() => {
     if (getBodyScroll()) {
       setFlipped(true)
     }
-  }
+  }, [setFlipped])
 
-  const showFront = () => {
+  const showFront = React.useCallback(() => {
     setFlipped(false)
-  }
+  }, [setFlipped])
 
   const buttonContents = children ? (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -51,6 +60,7 @@ export const ScrollTop: React.FunctionComponent = ({ children }) => {
       onBlur={showFront}
       onMouseEnter={showButton}
       onMouseLeave={showFront}
+      onKeyPress={scrollOnKey}
     >
       {buttonContents}
     </div>
