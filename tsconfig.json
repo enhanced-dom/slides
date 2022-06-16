@@ -5,9 +5,8 @@
     "target": "es2018",
     "baseUrl": "./",
     "declaration": true,
-    "jsx": "react",
-    "jsxFactory": "React.createElement",
-    "jsxFragmentFactory": "React.Fragment",
+    "jsx": "react-jsx",
+    "jsxImportSource": "theme-ui" ,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": "dist",
@@ -16,5 +15,6 @@
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.tsx",
   ]
 }

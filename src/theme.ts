@@ -4,8 +4,7 @@ import typography from 'typography-theme-wordpress-2016'
 import merge from 'deepmerge'
 import '@fontsource/montserrat'
 import pick from 'lodash.pick'
-// @ts-nocheck
-import blogTheme from 'gatsby-theme-blog/src/gatsby-plugin-theme-ui/components'
+import { blogTheme } from '@enhanced-dom/gatsby-waves'
 
 const typographyTheme = toTheme(typography)
 

@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { Themed, jsx } from 'theme-ui'
+import React from 'react'
+import { Themed } from 'theme-ui'
 
-import { SizeVariableNames, ColorVariableNames } from '../theme'
+import { SizeVariableNames, ColorVariableNames } from '../../theme'
 
 export const ShellHeader = ({ title, author, date }: { title: string; author: string; date: string }) => {
   return (

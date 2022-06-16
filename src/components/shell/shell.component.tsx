@@ -1,11 +1,10 @@
-/** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import { jsx, Themed, Theme, ThemeProvider } from 'theme-ui'
+import { Themed, Theme, ThemeProvider } from 'theme-ui'
 import { Global } from '@emotion/react'
 import React from 'react'
 
-import defaultTheme, { ColorVariableNames, SizeVariableNames } from '../theme'
+import defaultTheme, { ColorVariableNames, SizeVariableNames } from '../../theme'
 import { ShellHeader } from './header.component'
 import { ScrollTop } from './scroll-top'
 
