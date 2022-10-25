@@ -1,17 +1,17 @@
 import React from 'react'
 import { Themed } from 'theme-ui'
 
-import { SizeVariableNames, ColorVariableNames } from '../../theme'
+import { SizeVariableNames, ColorVariableNames, variables } from '../../theme'
 
 export const ShellHeader = ({ title, author, date }: { title: string; author: string; date: string }) => {
   return (
-    <div sx={{ position: 'relative' }}>
+    <div sx={{ position: 'relative', paddingX: [SizeVariableNames.SECTION_SLEEVE, 0] }}>
       <div
         sx={{
           position: ['static', 'absolute'],
           width: '100%',
           height: ['auto', '100%'],
-          right: ['auto', SizeVariableNames.FULL_CONTENT_WIDTH],
+          right: ['auto', `calc(100vw - ${variables.sizes[SizeVariableNames.CONTENT_WIDTH]}})`],
           color: ['text', ColorVariableNames.LIGHT_TEXT],
         }}
       >

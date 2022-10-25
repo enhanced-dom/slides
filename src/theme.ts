@@ -21,12 +21,13 @@ export enum ColorVariableNames {
 }
 
 export enum SizeVariableNames {
-  CONTENT = 'content',
-  INNER_MARGIN = 'innerMargin',
-  CENTRAL_GAP = 'centralGap',
+  CONTENT_WIDTH = 'content',
+  SECTION_SLEEVE = 'sectionSleeve',
   TOP_MARGIN = 'topMargin',
-  FULL_CONTENT = 'fullContent',
-  FULL_CONTENT_WIDTH = 'fullContentWidth',
+  SECTION_GAP = 'sectionGap',
+  PARAGRAPH_GAP = 'paragraphGap',
+  STEP_HEIGHT = 'stepHeight',
+  ASIDE_WIDTH = 'asideWidth',
 }
 
 export enum FontVariableNames {
@@ -46,11 +47,13 @@ export const variables = {
     [ColorVariableNames.LIGHT_BLUE]: '#aaf6d9',
   },
   sizes: {
-    [SizeVariableNames.CONTENT]: 420,
-    [SizeVariableNames.INNER_MARGIN]: 85,
-    [SizeVariableNames.TOP_MARGIN]: 256,
-    [SizeVariableNames.CENTRAL_GAP]: 85 * 2,
-    [SizeVariableNames.FULL_CONTENT_WIDTH]: 85 * 2 + 420,
+    [SizeVariableNames.CONTENT_WIDTH]: '420px',
+    [SizeVariableNames.SECTION_SLEEVE]: '85px',
+    [SizeVariableNames.TOP_MARGIN]: '256px',
+    [SizeVariableNames.SECTION_GAP]: '28px',
+    [SizeVariableNames.PARAGRAPH_GAP]: '20px',
+    [SizeVariableNames.STEP_HEIGHT]: '400px',
+    [SizeVariableNames.ASIDE_WIDTH]: '40vw',
   },
   fonts: {
     [FontVariableNames.BODY]: 'Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, sans-serif',
@@ -63,16 +66,25 @@ const theme: any = merge.all([
   typographyTheme,
   {
     colors: variables.colors,
+    breakpoints: ['1000px'],
     space: {
       ...typographyTheme.space,
       ...pick(variables.sizes, [
-        SizeVariableNames.INNER_MARGIN,
+        SizeVariableNames.SECTION_SLEEVE,
         SizeVariableNames.TOP_MARGIN,
-        SizeVariableNames.FULL_CONTENT_WIDTH,
-        SizeVariableNames.CENTRAL_GAP,
+        SizeVariableNames.CONTENT_WIDTH,
+        SizeVariableNames.SECTION_GAP,
+        SizeVariableNames.PARAGRAPH_GAP,
+        SizeVariableNames.STEP_HEIGHT,
+        SizeVariableNames.ASIDE_WIDTH,
       ]),
     },
-    sizes: pick(variables.sizes, [SizeVariableNames.CONTENT]),
+    sizes: pick(variables.sizes, [
+      SizeVariableNames.CONTENT_WIDTH,
+      SizeVariableNames.ASIDE_WIDTH,
+      SizeVariableNames.SECTION_SLEEVE,
+      SizeVariableNames.TOP_MARGIN,
+    ]),
     fonts: variables.fonts,
     styles: {
       root: {
@@ -101,7 +113,7 @@ const theme: any = merge.all([
         pl: 2,
         color: ColorVariableNames.TEXT,
         backgroundColor: ColorVariableNames.BACKGROUND,
-        marginBottom: '28px',
+        marginBottom: SizeVariableNames.SECTION_GAP,
         whiteSpace: 'pre-wrap',
       },
       code: {
@@ -129,8 +141,8 @@ const theme: any = merge.all([
         borderColor: ColorVariableNames.MUTED,
       },
       p: {
-        marginBottom: '20px',
-        marginTop: '20px',
+        marginBottom: SizeVariableNames.PARAGRAPH_GAP,
+        marginTop: SizeVariableNames.PARAGRAPH_GAP,
         code: {
           fontSize: `inherit`,
         },
@@ -146,22 +158,28 @@ const theme: any = merge.all([
       waves: {
         default: {
           Wave: {
-            width: ['100%', variables.sizes[SizeVariableNames.CONTENT] * 2 + variables.sizes[SizeVariableNames.CENTRAL_GAP]],
+            width: '100vw',
             // marginTop: "40px",
-            marginLeft: [0, -(variables.sizes[SizeVariableNames.CONTENT] + variables.sizes[SizeVariableNames.CENTRAL_GAP])],
-            marginBottom: '28px',
+            marginLeft: [
+              0,
+              `calc(-${variables.sizes[SizeVariableNames.CONTENT_WIDTH]} - ${variables.sizes[SizeVariableNames.SECTION_SLEEVE]} * 2)`,
+            ],
+            marginBottom: SizeVariableNames.SECTION_GAP,
             position: 'relative',
             display: ['block', 'flex'],
           },
           ScrollerContainer: {
-            paddingTop: ['80px', 0],
-            width: ['auto', SizeVariableNames.CONTENT],
-            marginLeft: [0, SizeVariableNames.CENTRAL_GAP],
+            paddingTop: [SizeVariableNames.SECTION_SLEEVE, 0],
+            paddingRight: [0, SizeVariableNames.SECTION_SLEEVE],
+            paddingBottom: [SizeVariableNames.SECTION_SLEEVE, 0],
+            paddingLeft: [SizeVariableNames.SECTION_SLEEVE, 0],
+            width: '100%',
+            marginLeft: [0, variables.sizes[SizeVariableNames.SECTION_SLEEVE]],
           },
           ScrollerStep: {
             position: 'relative',
             padding: 0,
-            minHeight: '400px',
+            minHeight: SizeVariableNames.STEP_HEIGHT,
             display: 'flex',
             alignItems: 'center',
             borderLeft: 0,
@@ -173,13 +191,14 @@ const theme: any = merge.all([
             left: '-24px',
           },
           StickerContainer: {
-            width: ['100vw', SizeVariableNames.CONTENT],
-            marginLeft: ['calc(50% - 50vw)', 0],
+            minWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
+            maxWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
+            paddingLeft: SizeVariableNames.SECTION_SLEEVE,
             position: ['sticky', 'static'],
             top: [0, 'auto'],
             zIndex: [1, 'auto'],
             height: ['50vh', 'auto'],
-            paddingRight: [0, SizeVariableNames.INNER_MARGIN],
+            paddingRight: SizeVariableNames.SECTION_SLEEVE,
             backgroundColor: ColorVariableNames.DARK_BACKGROUND,
             color: ColorVariableNames.LIGHT_TEXT,
           },
@@ -189,7 +208,6 @@ const theme: any = merge.all([
             height: ['100%', '80vh'],
             maxHeight: ['100%', '80vh'],
             top: ['auto', '2rem'],
-            marginLeft: [0, variables.sizes.innerMargin],
           },
           StickerStep: {
             position: 'absolute',
@@ -223,18 +241,17 @@ const theme: any = merge.all([
         },
       },
     },
+    prism: {
+      '.builtin, .changed, .keyword, .punctuation, .operator, .tag, .deleted, .string, .attr-value, .char, .number, .inserted': {
+        color: '#0f8f5e',
+      },
+      '.comment, .cdata, .doctype': {
+        fontStyle: 'italic',
+      },
+    },
   },
 ])
 
-theme.breakpoints = ['1000px']
-
-theme.prism = {
-  '.builtin, .changed, .keyword, .punctuation, .operator, .tag, .deleted, .string, .attr-value, .char, .number, .inserted': {
-    color: '#0f8f5e',
-  },
-  '.comment, .cdata, .doctype': {
-    fontStyle: 'italic',
-  },
-}
+theme.mergeWith = (otherTheme: any) => merge.all([theme, otherTheme])
 
 export default theme

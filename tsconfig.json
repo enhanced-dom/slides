@@ -6,15 +6,15 @@
     "baseUrl": "./",
     "declaration": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "theme-ui" ,
+    "jsxImportSource": "theme-ui",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "preserveConstEnums" : true,
-    "allowSyntheticDefaultImports": true
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "sourceRoot": "./",
+    "inlineSources": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

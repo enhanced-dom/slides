@@ -1,2 +1,8 @@
 export * from './components'
-export { default as defaultTheme } from './theme'
+export {
+  default as defaultTheme,
+  ColorVariableNames,
+  SizeVariableNames,
+  FontVariableNames,
+  variables as defaultThemeVariables,
+} from './theme'

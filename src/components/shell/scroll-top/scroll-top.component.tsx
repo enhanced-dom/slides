@@ -25,7 +25,7 @@ const scrollOnKey = (e: React.KeyboardEvent) => {
   scrollToTop()
 }
 
-export const ScrollTop: React.FunctionComponent = ({ children }) => {
+export const ScrollTop = ({ children }: { children?: React.ReactNode }) => {
   const [isFlipped, setFlipped] = React.useState(false)
   const showButton = React.useCallback(() => {
     if (getBodyScroll()) {
