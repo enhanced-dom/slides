@@ -1,14 +1,5 @@
 import React from 'react'
 
-const Heading = ({ heading }: { heading: string }) => (
-  <h2>
-    {heading}
-    <a href={`#${heading.toLowerCase().replace(/\s/, '-')}`} style={{ display: 'none' }} id={heading.toLowerCase().replace(/\s/, '-')}>
-      {''}
-    </a>
-  </h2>
-)
-
 interface TocItemProps {
   heading: string
   to?: string
@@ -19,7 +10,7 @@ const TocItem = ({ heading, to, explanation }: TocItemProps) => {
   return (
     <li>
       <a href={`#${anchor.toLowerCase().replace(/\s/, '-')}`}>
-        <em>{heading}</em>
+        <b>{heading}</b>
       </a>
       {explanation ? ': ' : ''}
       {explanation}
@@ -34,5 +25,3 @@ export const Toc = ({ headings }: { headings: TocItemProps[] }) => (
     ))}
   </ul>
 )
-
-Toc.Heading = Heading

@@ -1,0 +1,51 @@
+.branding {
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1;
+  border-radius: 50%;
+  color: var(--theme-ui-colors-highlight, inherit);
+
+  &:focus,
+  &:active {
+    /* stylelint-disable-next-line unit-allowed-list */
+    box-shadow: inset 0 0 1px 1px var(--theme-ui-colors-dark-text, inherit);
+    outline: none;
+  }
+
+  > div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &-back {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    font-size: 2rem;
+    color: var(--theme-uicolors-highlight, inherit);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
+  &-front {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+  }
+}
+
+.scroll-icon {
+  display: flex;
+  align-items: center;
+}

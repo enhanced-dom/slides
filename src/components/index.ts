@@ -1,2 +1,2 @@
-export * from './toc.component'
+export * from './toc'
 export * from './shell'

@@ -3,21 +3,18 @@ import { toTheme } from '@theme-ui/typography'
 import typography from 'typography-theme-wordpress-2016'
 import merge from 'deepmerge'
 import '@fontsource/montserrat'
+import '@fontsource/noto-serif'
 import pick from 'lodash.pick'
-import { blogTheme } from '@enhanced-dom/gatsby-waves'
 
 const typographyTheme = toTheme(typography)
 
 export enum ColorVariableNames {
-  BACKGROUND = 'background',
-  TEXT = 'text',
-  DARK_BACKGROUND = 'darkBackground',
-  LIGHT_TEXT = 'lightText',
+  LIGHT_BACKGROUND = 'light-background',
+  DARK_TEXT = 'dark-text',
+  DARK_BACKGROUND = 'dark-background',
+  LIGHT_TEXT = 'light-text',
   HIGHLIGHT = 'highlight',
-  MUTED = 'muted',
-  LIGHTER_BLUE = 'lighterBlue',
-  LIGHT_BLUE = 'lightBlue',
-  HEADING = 'heading',
+  CODE_KEYWORDS = 'code-keywords',
 }
 
 export enum SizeVariableNames {
@@ -32,19 +29,18 @@ export enum SizeVariableNames {
 
 export enum FontVariableNames {
   BODY = 'body',
+  HEADING = 'heading',
   MONOSPACE = 'monospace',
 }
 
 export const variables = {
   colors: {
-    [ColorVariableNames.BACKGROUND]: '#f1f5f8',
-    [ColorVariableNames.TEXT]: '#3D4851',
+    [ColorVariableNames.LIGHT_BACKGROUND]: '#f1f5f8',
+    [ColorVariableNames.DARK_TEXT]: '#3D4851',
     [ColorVariableNames.DARK_BACKGROUND]: '#3D4851',
     [ColorVariableNames.LIGHT_TEXT]: 'white',
-    [ColorVariableNames.MUTED]: '#3D4851',
-    [ColorVariableNames.LIGHTER_BLUE]: '#ebfcf6',
-    [ColorVariableNames.HEADING]: '#e2001a',
-    [ColorVariableNames.LIGHT_BLUE]: '#aaf6d9',
+    [ColorVariableNames.HIGHLIGHT]: '#e2001a',
+    [ColorVariableNames.CODE_KEYWORDS]: '#aaf6d9',
   },
   sizes: {
     [SizeVariableNames.CONTENT_WIDTH]: '420px',
@@ -57,27 +53,19 @@ export const variables = {
   },
   fonts: {
     [FontVariableNames.BODY]: 'Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, sans-serif',
-    [FontVariableNames.MONOSPACE]: `Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace`,
+    [FontVariableNames.HEADING]: 'Noto Serif, serif',
+    [FontVariableNames.MONOSPACE]: 'Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace',
   },
 }
 
 const theme: any = merge.all([
-  blogTheme,
   typographyTheme,
   {
     colors: variables.colors,
     breakpoints: ['1000px'],
     space: {
       ...typographyTheme.space,
-      ...pick(variables.sizes, [
-        SizeVariableNames.SECTION_SLEEVE,
-        SizeVariableNames.TOP_MARGIN,
-        SizeVariableNames.CONTENT_WIDTH,
-        SizeVariableNames.SECTION_GAP,
-        SizeVariableNames.PARAGRAPH_GAP,
-        SizeVariableNames.STEP_HEIGHT,
-        SizeVariableNames.ASIDE_WIDTH,
-      ]),
+      ...variables.sizes,
     },
     sizes: pick(variables.sizes, [
       SizeVariableNames.CONTENT_WIDTH,
@@ -87,82 +75,24 @@ const theme: any = merge.all([
     ]),
     fonts: variables.fonts,
     styles: {
-      root: {
-        fontFamily: FontVariableNames.BODY,
-      },
-      a: {
-        color: 'inherit',
-        textDecoration: 'none',
-        borderBottom: '1px solid',
-        borderColor: ColorVariableNames.MUTED,
-      },
-      li: {
-        marginBottom: '4px',
-        code: {
-          fontSize: `inherit`,
+      global: {
+        body: {
+          fontFamily: FontVariableNames.BODY,
         },
-      },
-      pre: {
-        variant: `prism`,
-        fontFamily: FontVariableNames.MONOSPACE,
-        tabSize: 2,
-        hyphens: `none`,
-        overflow: `auto`,
-        borderRadius: 10,
-        p: 0,
-        pl: 2,
-        color: ColorVariableNames.TEXT,
-        backgroundColor: ColorVariableNames.BACKGROUND,
-        marginBottom: SizeVariableNames.SECTION_GAP,
-        whiteSpace: 'pre-wrap',
-      },
-      code: {
-        fontFamily: FontVariableNames.MONOSPACE,
-        fontSize: `inherit`,
-      },
-      h1: {
-        fontStyle: 'italic',
-        color: ColorVariableNames.HEADING,
-      },
-      h2: {
-        marginTop: '60px',
-        fontStyle: 'italic',
-      },
-      h3: {
-        marginTop: '4px',
-      },
-      inlineCode: {
-        borderRadius: `0.3em`,
-        paddingTop: `0.15em`,
-        paddingBottom: `0.05em`,
-        paddingX: `0.2em`,
-      },
-      hr: {
-        borderColor: ColorVariableNames.MUTED,
-      },
-      p: {
-        marginBottom: SizeVariableNames.PARAGRAPH_GAP,
-        marginTop: SizeVariableNames.PARAGRAPH_GAP,
-        code: {
-          fontSize: `inherit`,
-        },
-      },
-      blockquote: {
-        color: `inherit`,
-        borderLeftColor: `inherit`,
-        opacity: 0.8,
-        '&.translation': {
-          fontSize: `1em`,
+        img: {
+          objectFit: 'contain',
+          margin: 0,
+          maxWidth: '100%',
+          maxHeight: '100%',
         },
       },
       waves: {
         default: {
           Wave: {
             width: '100vw',
-            // marginTop: "40px",
             marginLeft: [
               0,
-              `calc(-${variables.sizes[SizeVariableNames.CONTENT_WIDTH]} - ${variables.sizes[SizeVariableNames.SECTION_SLEEVE]} * 2)`,
+              `calc(-${variables.sizes[SizeVariableNames.ASIDE_WIDTH]} - ${variables.sizes[SizeVariableNames.SECTION_SLEEVE]})`,
             ],
             marginBottom: SizeVariableNames.SECTION_GAP,
             position: 'relative',
@@ -170,11 +100,11 @@ const theme: any = merge.all([
           },
           ScrollerContainer: {
             paddingTop: [SizeVariableNames.SECTION_SLEEVE, 0],
-            paddingRight: [0, SizeVariableNames.SECTION_SLEEVE],
+            paddingRight: SizeVariableNames.SECTION_SLEEVE,
             paddingBottom: [SizeVariableNames.SECTION_SLEEVE, 0],
             paddingLeft: [SizeVariableNames.SECTION_SLEEVE, 0],
             width: '100%',
-            marginLeft: [0, variables.sizes[SizeVariableNames.SECTION_SLEEVE]],
+            marginLeft: [0, SizeVariableNames.SECTION_SLEEVE],
           },
           ScrollerStep: {
             position: 'relative',
@@ -185,7 +115,7 @@ const theme: any = merge.all([
             borderLeft: 0,
           },
           ScrollerProgress: {
-            backgroundColor: ColorVariableNames.MUTED,
+            backgroundColor: ColorVariableNames.DARK_TEXT,
             borderRadius: '3px',
             position: 'absolute',
             left: '-24px',
@@ -193,33 +123,105 @@ const theme: any = merge.all([
           StickerContainer: {
             minWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
             maxWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
-            paddingLeft: SizeVariableNames.SECTION_SLEEVE,
-            position: ['sticky', 'static'],
-            top: [0, 'auto'],
+            position: 'sticky',
+            top: ['0', '10vh'],
             zIndex: [1, 'auto'],
-            height: ['50vh', 'auto'],
-            paddingRight: SizeVariableNames.SECTION_SLEEVE,
+            height: ['30vh', 'auto'],
+            maxHeight: ['50vh', '80vh'],
+            display: 'flex',
+            flexDirection: ['row', 'column'],
+            justifyContent: 'space-around',
+            alignItems: 'center',
             backgroundColor: ColorVariableNames.DARK_BACKGROUND,
             color: ColorVariableNames.LIGHT_TEXT,
-          },
-          Sticker: {
-            position: ['static', 'sticky'],
-            width: '100%',
-            height: ['100%', '80vh'],
-            maxHeight: ['100%', '80vh'],
-            top: ['auto', '2rem'],
+            paddingRight: SizeVariableNames.SECTION_SLEEVE,
+            paddingLeft: SizeVariableNames.SECTION_SLEEVE,
+
+            a: {
+              border: 'none',
+            },
           },
           StickerStep: {
-            position: 'absolute',
+            position: 'relative',
             height: '100%',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
           },
           // this is used to select the active scroller step
+          // 0.8 the step that is at 80% the screen height
           // 0.5 selects the step that is at half the screen height
-          // 0.7 the step that is at 70% the screen height
-          focus: [0.7, 0.5],
+          focus: [0.8, 0.5],
+        },
+      },
+      shell: {
+        default: {
+          Root: {
+            display: 'flex',
+            width: '100vw',
+            h1: {
+              marginLeft: [SizeVariableNames.SECTION_SLEEVE, 0],
+              color: ColorVariableNames.HIGHLIGHT,
+            },
+            h2: {
+              marginLeft: [SizeVariableNames.SECTION_SLEEVE, 0],
+              marginTop: '60px',
+            },
+            h3: {
+              marginLeft: [SizeVariableNames.SECTION_SLEEVE, 0],
+              marginTop: '4px',
+            },
+            hr: {
+              borderColor: ColorVariableNames.DARK_TEXT,
+            },
+            a: {
+              color: 'inherit',
+              textDecoration: 'none',
+              borderBottom: '1px solid',
+              borderColor: ColorVariableNames.DARK_TEXT,
+              '&:visited': {
+                color: 'inherit',
+              },
+              '&:hover': {
+                color: ColorVariableNames.HIGHLIGHT,
+              },
+            },
+            aside: {
+              bg: ColorVariableNames.DARK_BACKGROUND,
+              color: ColorVariableNames.LIGHT_TEXT,
+              minWidth: [0, SizeVariableNames.ASIDE_WIDTH],
+              maxWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
+              minHeight: '100vh',
+            },
+            main: {
+              py: [5, SizeVariableNames.TOP_MARGIN],
+              pl: [0, SizeVariableNames.SECTION_SLEEVE],
+              bg: ColorVariableNames.LIGHT_BACKGROUND,
+              color: ColorVariableNames.DARK_TEXT,
+              width: ['100vw', '100%'],
+              mx: ['auto', 0],
+            },
+            header: {
+              position: 'relative',
+              paddingX: [SizeVariableNames.SECTION_SLEEVE, 0],
+              display: 'flex',
+              flexDirection: ['row-reverse', 'column'],
+              alignItems: ['center', 'flex-start'],
+              justifyContent: ['space-between', 'start'],
+            },
+          },
+          Author: {
+            display: 'flex',
+            flexDirection: 'column',
+            paddingTop: [1, undefined],
+          },
+          Title: {
+            position: ['relative', 'static'],
+            width: '100%',
+            height: ['auto', '100%'],
+            right: ['auto', `calc(100vw - ${variables.sizes[SizeVariableNames.CONTENT_WIDTH]}})`],
+            color: ['text', ColorVariableNames.LIGHT_TEXT],
+          },
         },
       },
       CodeSurfer: {
@@ -227,26 +229,14 @@ const theme: any = merge.all([
           color: ColorVariableNames.LIGHT_TEXT,
           backgroundColor: ColorVariableNames.DARK_BACKGROUND,
         },
-        code: {
-          color: ColorVariableNames.LIGHT_TEXT,
-          backgroundColor: ColorVariableNames.DARK_BACKGROUND,
-        },
         tokens: {
+          'builtin changed keyword punctuation operator tag deleted string attr-value char number inserted': {
+            color: ColorVariableNames.CODE_KEYWORDS,
+          },
           'comment cdata doctype': {
             fontStyle: 'italic',
           },
-          'builtin changed keyword punctuation operator tag deleted string attr-value char number inserted': {
-            color: ColorVariableNames.LIGHT_BLUE,
-          },
         },
-      },
-    },
-    prism: {
-      '.builtin, .changed, .keyword, .punctuation, .operator, .tag, .deleted, .string, .attr-value, .char, .number, .inserted': {
-        color: '#0f8f5e',
-      },
-      '.comment, .cdata, .doctype': {
-        fontStyle: 'italic',
       },
     },
   },

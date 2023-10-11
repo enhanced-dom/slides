@@ -1,6 +1,6 @@
 {
   "name": "@enhanced-dom/slides",
-  "version": "0.0.7-alpha12",
+  "version": "0.0.7",
   "description": "Basic building blocks for html slides",
   "keywords": [],
   "repository": "https://github.com/enhanced-dom/slides.git",
@@ -18,11 +18,13 @@
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
-    "@enhanced-dom/fontawesome": "^0.0.3",
-    "@enhanced-dom/gatsby-waves": "^0.0.1",
-    "@enhanced-dom/icon": "^0.0.4",
-    "@enhanced-dom/react": "^0.0.6",
+    "@enhanced-dom/fontawesome": "^0.0.5",
+    "@enhanced-dom/gatsby-waves": "^0.0.2",
+    "@enhanced-dom/icon": "^0.0.9",
+    "@enhanced-dom/react": "^0.0.17",
     "@fontsource/montserrat": "^4.5.10",
+    "@fontsource/noto-serif": "^5.0.15",
+    "@mdx-js/react": "^2.3.0",
     "@theme-ui/typography": "^0.14.5",
     "deepmerge": "^4.2.2",
     "lodash.pick": "^4.4.0",
@@ -30,14 +32,14 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "@enhanced-dom/lint": "^0.0.7",
-    "@enhanced-dom/webpack": "^0.0.7",
+    "@enhanced-dom/lint": "^0.0.9",
+    "@enhanced-dom/webpack": "^0.0.11",
     "@types/lodash.pick": "^4.4.6",
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5"
   },
   "engines": {
     "node": ">=14.17.0",
-    "npm": ">=8.0.0"
+    "npm": ">=9.0.0"
   }
 }

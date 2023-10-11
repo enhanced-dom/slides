@@ -11,10 +11,7 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "preserveConstEnums": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "sourceRoot": "./",
-    "inlineSources": true
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

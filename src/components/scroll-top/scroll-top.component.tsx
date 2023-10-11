@@ -3,7 +3,7 @@ import ReactCardFlip from 'react-card-flip'
 import { faArrowAltCircleUp } from '@fortawesome/free-regular-svg-icons'
 
 import * as styles from './scroll-top.style.pcss'
-import { Icon } from './icon.component'
+import { Icon } from '../icon.component'
 
 const getBodyScroll = () => {
   return document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0
@@ -39,14 +39,14 @@ export const ScrollTop = ({ children }: { children?: React.ReactNode }) => {
 
   const buttonContents = children ? (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-      <div>{children}</div>
+      <div className={styles.brandingFront}>{children}</div>
       <div className={styles.brandingBack}>
-        <Icon config={{ ...faArrowAltCircleUp, namespace: 'fa5' }} />
+        <Icon className={styles.scrollIcon} config={{ ...faArrowAltCircleUp, namespace: 'fa5' }} />
       </div>
     </ReactCardFlip>
   ) : (
     <div className={styles.brandingBack}>
-      <Icon config={{ ...faArrowAltCircleUp, namespace: 'fa5' }} />
+      <Icon className={styles.scrollIcon} config={{ ...faArrowAltCircleUp, namespace: 'fa5' }} />
     </div>
   )
 
@@ -60,7 +60,7 @@ export const ScrollTop = ({ children }: { children?: React.ReactNode }) => {
       onBlur={showFront}
       onMouseEnter={showButton}
       onMouseLeave={showFront}
-      onKeyPress={scrollOnKey}
+      onKeyDown={scrollOnKey}
     >
       {buttonContents}
     </div>

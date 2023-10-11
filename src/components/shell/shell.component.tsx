@@ -3,10 +3,12 @@
 import { Themed, Theme, ThemeProvider } from 'theme-ui'
 import { Global } from '@emotion/react'
 import React from 'react'
+import { MDXProvider } from '@mdx-js/react'
 
-import defaultTheme, { ColorVariableNames, SizeVariableNames } from '../../theme'
+import defaultTheme from '../../theme'
 import { ShellHeader } from './header.component'
-import { ScrollTop } from './scroll-top'
+import { ScrollTop } from '../scroll-top'
+import { Heading2 } from '../toc'
 
 const BrandingSlot = ({ children }: { children?: React.ReactNode }) => {
   return <>{children}</>
@@ -25,48 +27,33 @@ const getBranding = (children: React.ReactNode): React.ReactElement =>
   React.Children.toArray(children).find((item) => (item as any)?.type === BrandingSlot) as React.ReactElement
 const getContents = (children: React.ReactNode) => React.Children.toArray(children).find((item) => (item as any)?.type === ContentsSlot)
 
-export const Shell: React.FC<{ theme?: Theme }> & { Branding: typeof BrandingSlot; Contents: typeof ContentsSlot } = ({
-  children,
-  theme,
-}) => {
+export const Shell: React.FC<{ theme?: Theme; variant?: string }> & {
+  Branding: typeof BrandingSlot
+  Contents: typeof ContentsSlot
+  mdxComponents: React.ComponentProps<typeof MDXProvider>['components']
+} = ({ children, theme, variant = 'default' }) => {
   const branding = getBranding(children)
   const contents = getContents(children)
   return (
     <ThemeProvider theme={theme}>
       <Themed.root
         sx={{
-          display: 'flex',
-          width: '100vw',
+          variant: `styles.shell.${variant}.Root`,
         }}
       >
         <Global
           styles={{
-            body: { margin: 0, overflowX: 'hidden' },
+            ...(theme.styles.global?.[variant] ?? {}),
+            body: { margin: 0, overflowX: 'hidden', ...(theme.styles.global?.[variant]?.body ?? {}) },
           }}
         />
-        <aside
-          sx={{
-            bg: ColorVariableNames.DARK_BACKGROUND,
-            color: ColorVariableNames.LIGHT_TEXT,
-            minWidth: [0, SizeVariableNames.ASIDE_WIDTH],
-            maxWidth: ['100vw', SizeVariableNames.ASIDE_WIDTH],
-            minHeight: '100vh',
-          }}
-        />
-        <div sx={{ bg: ColorVariableNames.BACKGROUND, color: ColorVariableNames.TEXT, width: ['100vw', '100%'] }}>
-          <main
-            sx={{
-              py: [5, SizeVariableNames.TOP_MARGIN],
-              pl: [0, SizeVariableNames.SECTION_SLEEVE],
-              width: '100%',
-              // maxWidth: ['100%', 'none'],
-              mx: ['auto', 0],
-            }}
-          >
+        <aside />
+        <main>
+          <MDXProvider components={Shell.mdxComponents} disableParentContext>
             {contents}
-            {branding ? <ScrollTop>{branding.props.children ? branding : null}</ScrollTop> : null}
-          </main>
-        </div>
+          </MDXProvider>
+          {branding ? <ScrollTop>{branding.props.children ? branding : null}</ScrollTop> : null}
+        </main>
       </Themed.root>
     </ThemeProvider>
   )
@@ -74,6 +61,9 @@ export const Shell: React.FC<{ theme?: Theme }> & { Branding: typeof BrandingSlo
 
 Shell.defaultProps = {
   theme: defaultTheme,
+}
+Shell.mdxComponents = {
+  h2: Heading2,
 }
 Shell.Branding = BrandingSlot
 Shell.Contents = ContentsSlot
