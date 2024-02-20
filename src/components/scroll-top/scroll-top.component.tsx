@@ -1,4 +1,4 @@
-import React from 'react'
+import { type KeyboardEvent, type ReactNode, useCallback, useState } from 'react'
 import ReactCardFlip from 'react-card-flip'
 import { faArrowAltCircleUp } from '@fortawesome/free-regular-svg-icons'
 
@@ -16,7 +16,7 @@ const scrollToTop = () => {
   }
 }
 
-const scrollOnKey = (e: React.KeyboardEvent) => {
+const scrollOnKey = (e: KeyboardEvent) => {
   if (e.altKey || e.shiftKey || e.ctrlKey || e.key !== 'Enter') {
     return
   }
@@ -25,15 +25,15 @@ const scrollOnKey = (e: React.KeyboardEvent) => {
   scrollToTop()
 }
 
-export const ScrollTop = ({ children }: { children?: React.ReactNode }) => {
-  const [isFlipped, setFlipped] = React.useState(false)
-  const showButton = React.useCallback(() => {
+export const ScrollTop = ({ children }: { children?: ReactNode }) => {
+  const [isFlipped, setFlipped] = useState(false)
+  const showButton = useCallback(() => {
     if (getBodyScroll()) {
       setFlipped(true)
     }
   }, [setFlipped])
 
-  const showFront = React.useCallback(() => {
+  const showFront = useCallback(() => {
     setFlipped(false)
   }, [setFlipped])
 

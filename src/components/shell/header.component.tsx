@@ -1,5 +1,4 @@
-import React from 'react'
-import { Themed } from 'theme-ui'
+import { Themed } from '@theme-ui/mdx'
 
 export const ShellHeader = ({
   title,

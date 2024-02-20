@@ -1,8 +1,7 @@
-/** @jsxFrag React.Fragment */
-
-import { Themed, Theme, ThemeProvider } from 'theme-ui'
+import { type Theme, ThemeUIProvider } from 'theme-ui'
+import { Themed } from '@theme-ui/mdx'
 import { Global } from '@emotion/react'
-import React from 'react'
+import { type ComponentProps, type FC, Children as ReactChildren, type ReactElement, type ReactNode } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 
 import defaultTheme from '../../theme'
@@ -10,11 +9,11 @@ import { ShellHeader } from './header.component'
 import { ScrollTop } from '../scroll-top'
 import { Heading2 } from '../toc'
 
-const BrandingSlot = ({ children }: { children?: React.ReactNode }) => {
+const BrandingSlot = ({ children }: { children?: ReactNode }) => {
   return <>{children}</>
 }
 
-const ContentsSlot: React.FC<React.ComponentProps<typeof ShellHeader>> = ({ children, ...rest }) => {
+const ContentsSlot: FC<ComponentProps<typeof ShellHeader>> = ({ children, ...rest }) => {
   return (
     <>
       <ShellHeader {...rest} />
@@ -23,19 +22,19 @@ const ContentsSlot: React.FC<React.ComponentProps<typeof ShellHeader>> = ({ chil
   )
 }
 
-const getBranding = (children: React.ReactNode): React.ReactElement =>
-  React.Children.toArray(children).find((item) => (item as any)?.type === BrandingSlot) as React.ReactElement
-const getContents = (children: React.ReactNode) => React.Children.toArray(children).find((item) => (item as any)?.type === ContentsSlot)
+const getBranding = (children: ReactNode): ReactElement =>
+  ReactChildren.toArray(children).find((item) => (item as any)?.type === BrandingSlot) as ReactElement
+const getContents = (children: ReactNode) => ReactChildren.toArray(children).find((item) => (item as any)?.type === ContentsSlot)
 
-export const Shell: React.FC<{ theme?: Theme; variant?: string }> & {
-  Branding: typeof BrandingSlot
-  Contents: typeof ContentsSlot
-  mdxComponents: React.ComponentProps<typeof MDXProvider>['components']
+export const Shell: FC<{ theme?: Theme; variant?: string }> & {
+  Branding: typeof BrandingSlot // eslint-disable-line @typescript-eslint/naming-convention
+  Contents: typeof ContentsSlot // eslint-disable-line @typescript-eslint/naming-convention
+  mdxComponents: ComponentProps<typeof MDXProvider>['components']
 } = ({ children, theme, variant = 'default' }) => {
   const branding = getBranding(children)
   const contents = getContents(children)
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeUIProvider theme={theme}>
       <Themed.root
         sx={{
           variant: `styles.shell.${variant}.Root`,
@@ -55,7 +54,7 @@ export const Shell: React.FC<{ theme?: Theme; variant?: string }> & {
           {branding ? <ScrollTop>{branding.props.children ? branding : null}</ScrollTop> : null}
         </main>
       </Themed.root>
-    </ThemeProvider>
+    </ThemeUIProvider>
   )
 }
 
