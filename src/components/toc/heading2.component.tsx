@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { faLink } from '@fortawesome/free-solid-svg-icons'
 import { faClipboard } from '@fortawesome/free-regular-svg-icons'
 
-import * as styles from './toc.style.pcss'
+import * as styles from './heading2.style.pcss'
 import { Icon } from '../icon.component'
 
 export const Heading2 = ({

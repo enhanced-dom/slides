@@ -1,6 +1,6 @@
 {
   "name": "@enhanced-dom/slides",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Basic building blocks for html slides",
   "keywords": [],
   "repository": "https://github.com/enhanced-dom/slides.git",
@@ -13,17 +13,17 @@
     "build": "tsc -p ./tsconfig.json && copyfiles -u 1 src/**/*.pcss src/**/*.pcss.d.ts dist",
     "postbuild": "copyfiles LICENSE.md README.md dist && @enhanced-dom-copy-packagejson",
     "postinstall": "@enhanced-dom-husky",
-    "css": "webpack --config typed-styles.config.js",
+    "css": "webpack --config typed-styles.config.js --watch --mode=none",
     "lint": "eslint --fix --config eslint.config.js src && stylelint --fix --config stylelint.config.js src/**/*.pcss"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
-    "@enhanced-dom/fontawesome": "^0.1.0",
-    "@enhanced-dom/gatsby-waves": "^0.1.0",
-    "@enhanced-dom/icon": "^0.1.0",
-    "@enhanced-dom/react": "^0.1.0",
-    "@fontsource/montserrat": "^5.0.16",
-    "@fontsource/noto-serif": "^5.0.18",
+    "@enhanced-dom/fontawesome": "~0.2.0",
+    "@enhanced-dom/gatsby-waves": "~0.1.0",
+    "@enhanced-dom/icon": "~0.1.1",
+    "@enhanced-dom/react": "~0.1.0",
+    "@fontsource/montserrat": "^5.0.17",
+    "@fontsource/noto-serif": "^5.0.19",
     "@mdx-js/react": "^3.0.1",
     "@theme-ui/typography": "^0.16.2",
     "deepmerge": "^4.3.1",
@@ -32,8 +32,8 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "@enhanced-dom/lint": "^0.1.4",
-    "@enhanced-dom/webpack": "^0.1.0",
+    "@enhanced-dom/lint": "~0.1.4",
+    "@enhanced-dom/webpack": "~0.2.0",
     "@types/lodash.pick": "^4.4.9",
     "@types/react": "^17.0.75",
     "@types/react-dom": "^17.0.25"
